@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CASHFLOW</title>
-    <!-- Logo sebagai Favicon -->
+    <!-- Logo tetap sebagai Favicon -->
     <link rel="icon" type="image/png" href="https://github.com/edibrata/image/blob/main/Logo%20PSB-1.png?raw=true">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
@@ -46,16 +46,9 @@
         <!-- Header Ringkasan -->
         <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 mb-3">
             <div class="flex justify-between items-center mb-3">
-                <div class="flex items-center gap-3">
-                    <!-- Logo PSB -->
-                    <img src="https://github.com/edibrata/image/blob/main/Logo%20PSB-1.png?raw=true" 
-                         alt="Logo PSB" 
-                         class="w-10 h-10 object-contain"
-                         onerror="this.style.display='none'">
-                    <div>
-                        <h1 class="text-lg font-bold text-slate-900 leading-tight uppercase">CASHFLOW</h1>
-                        <p class="text-[10px] text-slate-500 font-medium tracking-tight">Laporan Keuangan PSB Sukaresmi</p>
-                    </div>
+                <div>
+                    <h1 class="text-lg font-bold text-slate-900 leading-tight uppercase">CASHFLOW</h1>
+                    <p class="text-[10px] text-slate-500 font-medium tracking-tight">Laporan Keuangan PSB Sukaresmi</p>
                 </div>
                 <div class="text-right">
                     <p class="text-[9px] text-slate-400 font-bold uppercase tracking-tighter">Saldo Akhir</p>
@@ -81,13 +74,13 @@
                 <table class="w-full text-left border-collapse table-min-w">
                     <thead class="sticky top-0 z-20 bg-slate-50 border-b border-slate-200 shadow-sm text-slate-800">
                         <tr>
-                            <th onclick="handleSort('no')" class="sort-header compact-th px-2 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-center w-6 text-slate-400">No <span id="sort-icon-no"></span></th>
-                            <th onclick="handleSort('tgl')" class="sort-header compact-th px-2 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider w-16 text-left text-slate-400">Tanggal <span id="sort-icon-tgl"></span></th>
-                            <th onclick="handleSort('desc')" class="sort-header compact-th px-2 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-left text-slate-400">Keterangan <span id="sort-icon-desc"></span></th>
-                            <th onclick="handleSort('in')" class="sort-header compact-th px-2 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-right w-16 text-slate-400">Debit <span id="sort-icon-in"></span></th>
-                            <th onclick="handleSort('out')" class="sort-header compact-th px-2 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-right w-16 text-slate-400">Kredit <span id="sort-icon-out"></span></th>
-                            <th class="compact-th px-2 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-right w-20 text-slate-400">Saldo</th>
-                            <th class="compact-th px-2 py-3 text-center w-12 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-slate-400">Aksi</th>
+                            <th onclick="handleSort('no')" class="sort-header compact-th px-2 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-center w-6">No <span id="sort-icon-no"></span></th>
+                            <th onclick="handleSort('tgl')" class="sort-header compact-th px-2 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider w-16 text-left">Tanggal <span id="sort-icon-tgl"></span></th>
+                            <th onclick="handleSort('desc')" class="sort-header compact-th px-2 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-left">Keterangan <span id="sort-icon-desc"></span></th>
+                            <th onclick="handleSort('in')" class="sort-header compact-th px-2 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-right w-16">Debit <span id="sort-icon-in"></span></th>
+                            <th onclick="handleSort('out')" class="sort-header compact-th px-2 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-right w-16">Kredit <span id="sort-icon-out"></span></th>
+                            <th class="compact-th px-2 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-right w-20">Saldo</th>
+                            <th class="compact-th px-2 py-3 text-center w-12 text-[9px] font-bold text-slate-400 uppercase tracking-wider">Aksi</th>
                         </tr>
                     </thead>
                     <tbody id="transaction-body" class="divide-y divide-slate-50 text-[13px] bg-white text-slate-800">
@@ -175,22 +168,22 @@
                     <input type="text" id="edit-tgl" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800">
                 </div>
                 <div>
-                    <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1 text-slate-400 text-slate-400 text-slate-400">Keterangan</label>
+                    <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1 text-slate-400">Keterangan</label>
                     <textarea id="edit-desc" rows="3" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none resize-none text-slate-800"></textarea>
                 </div>
                 <div class="grid grid-cols-2 gap-3 text-slate-800">
                     <div>
-                        <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1 text-slate-400 text-slate-400">Debit (Masuk)</label>
+                        <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Debit (Masuk)</label>
                         <input type="number" id="edit-in" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800">
                     </div>
                     <div>
-                        <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1 text-slate-400 text-slate-400">Kredit (Keluar)</label>
+                        <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Kredit (Keluar)</label>
                         <input type="number" id="edit-out" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800">
                     </div>
                 </div>
             </div>
-            <div class="p-4 bg-white border-t border-slate-100 flex gap-2 text-slate-800 text-slate-800">
-                <button id="cancel-edit-btn" class="flex-1 px-4 py-2.5 border border-slate-200 text-slate-600 rounded-lg text-xs font-bold hover:bg-slate-50 transition-all uppercase tracking-wider text-center text-slate-800">Batal</button>
+            <div class="p-4 bg-white border-t border-slate-100 flex gap-2 text-slate-800">
+                <button id="cancel-edit-btn" class="flex-1 px-4 py-2.5 border border-slate-200 text-slate-600 rounded-lg text-xs font-bold hover:bg-slate-50 transition-all uppercase tracking-wider text-center">Batal</button>
                 <button id="save-edit-btn" class="flex-1 px-4 py-2.5 bg-slate-900 text-white rounded-lg text-xs font-bold hover:bg-black transition-all uppercase tracking-wider text-center text-white">Simpan</button>
             </div>
         </div>
@@ -200,13 +193,13 @@
     <div id="delete-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4 text-slate-800">
         <div class="bg-white rounded-xl w-full max-w-[280px] shadow-2xl border border-slate-200 overflow-hidden text-center text-slate-800">
             <div class="p-6">
-                <div class="w-12 h-12 bg-rose-50 text-rose-500 rounded-full flex items-center justify-center mx-auto mb-4 text-rose-500 text-rose-500">
+                <div class="w-12 h-12 bg-rose-50 text-rose-500 rounded-full flex items-center justify-center mx-auto mb-4 text-rose-500">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                     </svg>
                 </div>
-                <h3 class="font-bold text-slate-900 mb-1 text-sm text-slate-900 text-slate-800">Hapus Transaksi?</h3>
-                <p class="text-[11px] text-slate-500 leading-relaxed px-2 text-slate-500 text-slate-500">Data ini akan dihapus permanen.</p>
+                <h3 class="font-bold text-slate-900 mb-1 text-sm text-slate-900">Hapus Transaksi?</h3>
+                <p class="text-[11px] text-slate-500 leading-relaxed px-2 text-slate-500">Data ini akan dihapus permanen.</p>
             </div>
             <div class="flex border-t border-slate-100 text-slate-800">
                 <button id="cancel-delete-btn" class="flex-1 px-4 py-3 text-xs font-bold text-slate-500 border-r border-slate-100 hover:bg-slate-50 uppercase tracking-widest text-center">Batal</button>
@@ -393,8 +386,8 @@
                         <td class="compact-td text-right font-bold ${cumulativeBalance < 0 ? 'text-rose-700' : 'text-slate-900'}">
                             ${formatIDR(cumulativeBalance)}
                         </td>
-                        <td class="compact-td text-center text-slate-800">
-                            <div class="flex items-center justify-center gap-1.5">
+                        <td class="compact-td text-center">
+                            <div class="flex items-center justify-center gap-1.5 text-slate-800">
                                 <button data-id="${item.id}" class="edit-btn text-blue-500/40 hover:text-blue-600 p-1 transition-colors bg-blue-50 rounded">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
