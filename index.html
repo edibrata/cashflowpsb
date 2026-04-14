@@ -15,16 +15,22 @@
         .modal-active { overflow: hidden; }
         .sort-header { cursor: pointer; transition: background 0.2s; }
         .sort-header:hover { background-color: #f1f5f9; }
+        
+        /* Optimasi Horizontal Mobile */
         @media (max-width: 640px) {
-            .compact-td { padding: 0.5rem 0.75rem !important; }
-            .compact-th { padding: 0.75rem !important; }
+            .compact-td { padding: 0.5rem 0.4rem !important; font-size: 11px !important; }
+            .compact-th { padding: 0.6rem 0.4rem !important; font-size: 8px !important; }
+            .table-min-w { min-width: 450px !important; }
+        }
+        @media (min-width: 641px) {
+            .table-min-w { min-width: 550px; }
         }
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen pb-10 text-slate-800">
 
     <div class="max-w-md mx-auto md:max-w-2xl lg:max-w-4xl p-3 sm:p-4">
-        <!-- Connection Progress Indicator -->
+        <!-- Indikator Koneksi -->
         <div id="connection-indicator" class="fixed top-0 left-0 w-full h-1 bg-amber-400 z-[100] transition-all duration-500 opacity-0"></div>
         
         <!-- Header Ringkasan -->
@@ -58,7 +64,7 @@
                 <div class="flex gap-2">
                     <textarea id="chat-input" rows="1" 
                         placeholder="Ketik transaksi .... (Contoh: 2 April, Keluar, Transportasi K3S, 100000)" 
-                        class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all resize-none overflow-hidden min-h-[42px] text-slate-800"
+                        class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm placeholder:text-[11px] placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all resize-none overflow-hidden min-h-[42px] text-slate-800"
                         oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"></textarea>
                     <button id="send-btn" class="bg-slate-900 text-white px-4 rounded-lg hover:bg-black transition-all flex-shrink-0 flex items-center justify-center disabled:opacity-50">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -78,16 +84,16 @@
         <!-- Tabel Transaksi -->
         <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
             <div id="table-container" class="max-h-[450px] overflow-y-auto overflow-x-auto custom-scroll scroll-smooth">
-                <table class="w-full text-left border-collapse min-w-[550px]">
+                <table class="w-full text-left border-collapse table-min-w">
                     <thead class="sticky top-0 z-20 bg-slate-50 border-b border-slate-200 shadow-sm text-slate-800">
                         <tr>
-                            <th onclick="handleSort('no')" class="sort-header compact-th px-4 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-center w-12 text-slate-400">No <span id="sort-icon-no"></span></th>
-                            <th onclick="handleSort('tgl')" class="sort-header compact-th px-4 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider w-24 text-slate-400 text-left">Tanggal <span id="sort-icon-tgl"></span></th>
-                            <th onclick="handleSort('desc')" class="sort-header compact-th px-4 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-slate-400 text-left">Keterangan <span id="sort-icon-desc"></span></th>
-                            <th onclick="handleSort('in')" class="sort-header compact-th px-4 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-right text-slate-400">Debit <span id="sort-icon-in"></span></th>
-                            <th onclick="handleSort('out')" class="sort-header compact-th px-4 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-right text-slate-400">Kredit <span id="sort-icon-out"></span></th>
-                            <th class="compact-th px-4 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-right text-slate-400">Saldo</th>
-                            <th class="compact-th px-4 py-3 text-center w-20 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-slate-400">Aksi</th>
+                            <th onclick="handleSort('no')" class="sort-header compact-th px-4 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-center w-8">No <span id="sort-icon-no"></span></th>
+                            <th onclick="handleSort('tgl')" class="sort-header compact-th px-4 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider w-20 text-left">Tanggal <span id="sort-icon-tgl"></span></th>
+                            <th onclick="handleSort('desc')" class="sort-header compact-th px-4 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-left">Keterangan <span id="sort-icon-desc"></span></th>
+                            <th onclick="handleSort('in')" class="sort-header compact-th px-4 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-right w-20">Debit <span id="sort-icon-in"></span></th>
+                            <th onclick="handleSort('out')" class="sort-header compact-th px-4 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-right w-20">Kredit <span id="sort-icon-out"></span></th>
+                            <th class="compact-th px-4 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-right w-24">Saldo</th>
+                            <th class="compact-th px-4 py-3 text-center w-14 text-[9px] font-bold text-slate-400 uppercase tracking-wider">Aksi</th>
                         </tr>
                     </thead>
                     <tbody id="transaction-body" class="divide-y divide-slate-50 text-[13px] bg-white text-slate-800">
@@ -125,7 +131,7 @@
                     <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1 text-slate-400">Keterangan</label>
                     <input type="text" id="edit-desc" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800">
                 </div>
-                <div class="grid grid-cols-2 gap-3">
+                <div class="grid grid-cols-2 gap-3 text-slate-800">
                     <div>
                         <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Debit (Masuk)</label>
                         <input type="number" id="edit-in" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800">
@@ -152,7 +158,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                     </svg>
                 </div>
-                <h3 class="font-bold text-slate-900 mb-1 text-sm">Hapus Transaksi?</h3>
+                <h3 class="font-bold text-slate-900 mb-1 text-sm text-slate-900">Hapus Transaksi?</h3>
                 <p class="text-[11px] text-slate-500 leading-relaxed px-2 text-slate-500">Data ini akan dihapus permanen.</p>
             </div>
             <div class="flex border-t border-slate-100">
@@ -180,14 +186,11 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
         
-        // JALUR SPESIFIK SESUAI INSTRUKSI
         const collectionPath = collection(db, 'artifacts', 'cashflow', 'public', 'data', 'transactions');
 
         let rawTransactions = [];
         let sortedTransactions = [];
         let idToDelete = null;
-        
-        // DEFAULT URUTAN: Terlama (Ascending)
         let currentSort = { column: 'tgl', direction: 'asc' };
 
         const bodyEl = document.getElementById('transaction-body');
@@ -336,7 +339,7 @@
 
                 html += `
                     <tr class="hover:bg-slate-50/50 transition-colors">
-                        <td class="compact-td px-4 py-3 text-center text-slate-400 font-medium text-[11px]">${index + 1}</td>
+                        <td class="compact-td px-4 py-3 text-center text-slate-400 font-medium">${index + 1}</td>
                         <td class="compact-td px-4 py-3">${getSmartDateHTML(item.tgl || item.tanggal)}</td>
                         <td class="compact-td px-4 py-3 text-slate-800 leading-tight">${item.desc || item.keterangan || 'Transaksi'}</td>
                         <td class="compact-td px-4 py-3 text-right font-medium text-emerald-600">${amountIn > 0 ? formatIDR(amountIn) : '-'}</td>
@@ -437,12 +440,11 @@
                 const parts = line.split(',').map(p => p.trim());
                 let tgl, type, desc, amountStr;
 
-                // Logika Pewarisan Tanggal Otomatis
                 if (parts[0] === '' && lastUsedDate) {
                     tgl = lastUsedDate;
                 } else if (parts[0] !== '') {
                     tgl = parts[0];
-                    lastUsedDate = tgl; // Update tanggal patokan
+                    lastUsedDate = tgl;
                 } else {
                     tgl = new Date().toLocaleDateString('id-ID', { day:'2-digit', month:'short' });
                     lastUsedDate = tgl;
@@ -542,7 +544,6 @@
             if (sortedTransactions.length === 0) return;
             const header = ["No", "Tanggal", "Keterangan", "Debit", "Kredit", "Saldo"];
             let bal = 0;
-            // Excel sync 100% dengan urutan layar
             const dataRows = sortedTransactions.map((t, i) => {
                 const amountIn = parseFloat(t.in || t.masuk || 0);
                 const amountOut = parseFloat(t.out || t.keluar || 0);
