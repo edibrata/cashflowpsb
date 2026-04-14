@@ -29,7 +29,6 @@
                 padding: 0.4rem 0.2rem !important; 
                 font-size: 8px !important; 
             }
-            /* Memperkecil lebar minimal agar pas di layar portrait HP standar */
             .table-min-w { min-width: 370px !important; }
             .header-balance { font-size: 1.1rem !important; }
         }
@@ -46,13 +45,21 @@
         
         <!-- Header Ringkasan -->
         <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-4 mb-3">
-            <div class="flex justify-between items-center mb-3">
-                <div>
-                    <h1 class="text-lg font-bold text-slate-900 leading-tight uppercase">CASHFLOW</h1>
+            <div class="flex justify-between items-start mb-3">
+                <div class="flex flex-col">
+                    <div class="flex items-center gap-2">
+                        <h1 class="text-lg font-bold text-slate-900 leading-tight uppercase">CASHFLOW</h1>
+                        <!-- Tombol Riwayat -->
+                        <button id="open-history-btn" class="p-1 text-slate-300 hover:text-slate-600 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </button>
+                    </div>
                     <p class="text-[10px] text-slate-500 font-medium tracking-tight">Laporan Keuangan PSB Sukaresmi</p>
                 </div>
                 <div class="text-right">
-                    <p class="text-[9px] text-slate-400 font-bold uppercase tracking-tighter">Saldo Akhir</p>
+                    <p class="text-[9px] text-slate-400 font-bold uppercase tracking-tighter text-right">Saldo Akhir</p>
                     <h2 id="total-balance" class="header-balance text-xl font-black transition-all duration-500 text-slate-900">Rp 0</h2>
                 </div>
             </div>
@@ -62,7 +69,7 @@
                     <p class="text-[9px] text-emerald-600 uppercase font-bold">Total Masuk</p>
                     <p id="total-debit" class="text-xs font-bold text-emerald-700">Rp 0</p>
                 </div>
-                <div class="text-right bg-rose-50/50 p-2 rounded-md border border-rose-100/50 text-right">
+                <div class="text-right bg-rose-50/50 p-2 rounded-md border border-rose-100/50 text-right text-right">
                     <p class="text-[9px] text-rose-600 uppercase font-bold text-right">Total Keluar</p>
                     <p id="total-kredit" class="text-xs font-bold text-rose-700 text-right">Rp 0</p>
                 </div>
@@ -78,10 +85,10 @@
                             <th onclick="handleSort('no')" class="sort-header compact-th px-2 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-center w-6">No <span id="sort-icon-no" class="hidden"></span></th>
                             <th onclick="handleSort('tgl')" class="sort-header compact-th px-2 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider w-16 text-left">Tanggal <span id="sort-icon-tgl" class="hidden"></span></th>
                             <th onclick="handleSort('desc')" class="sort-header compact-th px-2 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-left">Keterangan <span id="sort-icon-desc" class="hidden"></span></th>
-                            <th onclick="handleSort('in')" class="sort-header compact-th px-2 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-right w-16">Debit <span id="sort-icon-in" class="hidden"></span></th>
-                            <th onclick="handleSort('out')" class="sort-header compact-th px-2 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-right w-16">Kredit <span id="sort-icon-out" class="hidden"></span></th>
-                            <th class="compact-th px-2 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-right w-20">Saldo</th>
-                            <th class="compact-th px-2 py-3 text-center w-12 text-[9px] font-bold text-slate-400 uppercase tracking-wider">Aksi</th>
+                            <th onclick="handleSort('in')" class="sort-header compact-th px-2 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-right w-16 text-slate-800">Debit <span id="sort-icon-in" class="hidden"></span></th>
+                            <th onclick="handleSort('out')" class="sort-header compact-th px-2 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-right w-16 text-slate-800">Kredit <span id="sort-icon-out" class="hidden"></span></th>
+                            <th class="compact-th px-2 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-right w-20 text-slate-800">Saldo</th>
+                            <th class="compact-th px-2 py-3 text-center w-12 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-slate-800">Aksi</th>
                         </tr>
                     </thead>
                     <tbody id="transaction-body" class="divide-y divide-slate-50 text-[13px] bg-white text-slate-800">
@@ -89,7 +96,7 @@
                     </tbody>
                 </table>
             </div>
-            <div id="loading-state" class="py-10 text-center">
+            <div id="loading-state" class="py-10 text-center text-slate-800">
                 <p class="text-slate-400 text-xs animate-pulse">Memuat data...</p>
             </div>
             <div id="empty-state" class="py-10 text-center hidden text-slate-400">
@@ -114,9 +121,9 @@
     </div>
 
     <!-- Modal Input Transaksi -->
-    <div id="input-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4 text-slate-800">
+    <div id="input-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4 text-slate-800 text-slate-800 text-slate-800 text-slate-800">
         <div class="bg-white rounded-t-lg sm:rounded-lg w-full max-w-sm shadow-2xl overflow-hidden flex flex-col border border-slate-200">
-            <div class="p-4 border-b border-slate-100 flex justify-between items-center">
+            <div class="p-4 border-b border-slate-100 flex justify-between items-center text-slate-800">
                 <h3 class="font-bold text-slate-900 text-sm uppercase tracking-wide">Tambah Transaksi</h3>
                 <button id="close-input-btn" class="text-slate-400 p-1">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -136,25 +143,25 @@
                 <div class="grid grid-cols-2 gap-3 text-slate-800">
                     <div>
                         <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Debit (Masuk)</label>
-                        <input type="number" id="add-in" placeholder="0" class="w-full bg-white border border-slate-200 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800">
+                        <input type="number" id="add-in" placeholder="0" class="w-full bg-white border border-slate-200 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800 text-slate-800">
                     </div>
                     <div>
-                        <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Kredit (Keluar)</label>
-                        <input type="number" id="add-out" placeholder="0" class="w-full bg-white border border-slate-200 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800">
+                        <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1 text-slate-400">Kredit (Keluar)</label>
+                        <input type="number" id="add-out" placeholder="0" class="w-full bg-white border border-slate-200 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800 text-slate-800">
                     </div>
                 </div>
             </div>
             <div class="p-4 bg-white border-t border-slate-100 flex gap-2 text-slate-800">
                 <button id="cancel-add-btn" class="flex-1 px-4 py-2.5 border border-slate-200 text-slate-600 rounded-md text-xs font-bold hover:bg-slate-50 transition-all uppercase tracking-wider text-center">Batal</button>
-                <button id="save-add-btn" class="flex-1 px-4 py-2.5 bg-slate-900 text-white rounded-md text-xs font-bold hover:bg-black transition-all uppercase tracking-wider text-center">Simpan</button>
+                <button id="save-add-btn" class="flex-1 px-4 py-2.5 bg-slate-900 text-white rounded-md text-xs font-bold hover:bg-black transition-all uppercase tracking-wider text-center text-white">Simpan</button>
             </div>
         </div>
     </div>
 
     <!-- Modal Edit -->
-    <div id="edit-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4 text-slate-800 text-slate-800">
-        <div class="bg-white rounded-t-lg sm:rounded-lg w-full max-w-sm shadow-2xl border border-slate-200 overflow-hidden">
-            <div class="p-4 border-b border-slate-100 flex justify-between items-center text-slate-800">
+    <div id="edit-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4 text-slate-800 text-slate-800 text-slate-800">
+        <div class="bg-white rounded-t-lg sm:rounded-lg w-full max-w-sm shadow-2xl border border-slate-200 overflow-hidden text-slate-800">
+            <div class="p-4 border-b border-slate-100 flex justify-between items-center">
                 <h3 class="font-bold text-slate-900 text-sm uppercase tracking-wide">Edit Transaksi</h3>
                 <button id="close-edit-btn" class="text-slate-400 p-1">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -166,20 +173,20 @@
                 <input type="hidden" id="edit-id">
                 <div>
                     <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Tanggal</label>
-                    <input type="text" id="edit-tgl" class="w-full bg-white border border-slate-200 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800">
+                    <input type="text" id="edit-tgl" class="w-full bg-white border border-slate-200 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800 text-slate-800">
                 </div>
                 <div>
-                    <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1 text-slate-400 text-slate-400">Keterangan</label>
-                    <textarea id="edit-desc" rows="3" class="w-full bg-white border border-slate-200 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none resize-none text-slate-800"></textarea>
+                    <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Keterangan</label>
+                    <textarea id="edit-desc" rows="3" class="w-full bg-white border border-slate-200 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none resize-none text-slate-800 text-slate-800"></textarea>
                 </div>
                 <div class="grid grid-cols-2 gap-3 text-slate-800 text-slate-800">
                     <div>
-                        <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1 text-slate-400 text-slate-400">Debit (Masuk)</label>
-                        <input type="number" id="edit-in" class="w-full bg-white border border-slate-200 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800">
+                        <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Debit (Masuk)</label>
+                        <input type="number" id="edit-in" class="w-full bg-white border border-slate-200 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800 text-slate-800">
                     </div>
                     <div>
-                        <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1 text-slate-400 text-slate-400 text-slate-400">Kredit (Keluar)</label>
-                        <input type="number" id="edit-out" class="w-full bg-white border border-slate-200 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800">
+                        <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1 text-slate-400">Kredit (Keluar)</label>
+                        <input type="number" id="edit-out" class="w-full bg-white border border-slate-200 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800 text-slate-800">
                     </div>
                 </div>
             </div>
@@ -190,21 +197,58 @@
         </div>
     </div>
 
+    <!-- Modal Riwayat (Tong Sampah) -->
+    <div id="history-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4 text-slate-800">
+        <div class="bg-white rounded-t-lg sm:rounded-lg w-full max-w-lg shadow-2xl overflow-hidden flex flex-col border border-slate-200 h-[80vh] sm:h-auto sm:max-h-[85vh]">
+            <div class="p-4 border-b border-slate-100 flex justify-between items-center text-slate-800">
+                <div>
+                    <h3 class="font-bold text-slate-900 text-sm uppercase tracking-wide">Tong Sampah</h3>
+                    <p class="text-[8px] text-slate-400 font-medium">Transaksi yang dihapus sementara</p>
+                </div>
+                <button id="close-history-btn" class="text-slate-400 p-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="flex-1 overflow-y-auto p-2 bg-slate-50/30 custom-scroll text-slate-800">
+                <table class="w-full text-left border-collapse text-slate-800">
+                    <thead class="sticky top-0 bg-slate-50 shadow-sm text-slate-800">
+                        <tr class="text-slate-800">
+                            <th class="compact-th px-2 py-2 text-[8px] font-bold text-slate-400 uppercase w-16">Tgl</th>
+                            <th class="compact-th px-2 py-2 text-[8px] font-bold text-slate-400 uppercase">Keterangan</th>
+                            <th class="compact-th px-2 py-2 text-[8px] font-bold text-slate-400 uppercase text-center w-20">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="history-body" class="divide-y divide-slate-100 bg-white text-slate-800 text-slate-800">
+                        <!-- Content -->
+                    </tbody>
+                </table>
+                <div id="history-empty-state" class="py-10 text-center hidden">
+                    <p class="text-slate-300 text-[10px] italic">Tong sampah kosong.</p>
+                </div>
+            </div>
+            <div class="p-3 bg-white border-t border-slate-100 text-right text-slate-800">
+                <p class="text-[8px] text-slate-400">* Data di sini tidak masuk perhitungan saldo utama.</p>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal Konfirmasi Hapus -->
     <div id="delete-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4 text-slate-800">
-        <div class="bg-white rounded-lg w-full max-w-[280px] shadow-2xl border border-slate-200 overflow-hidden text-center text-slate-800 text-slate-800">
+        <div class="bg-white rounded-lg w-full max-w-[280px] shadow-2xl border border-slate-200 overflow-hidden text-center text-slate-800">
             <div class="p-6">
-                <div class="w-12 h-12 bg-rose-50 text-rose-500 rounded-full flex items-center justify-center mx-auto mb-4 text-rose-500 text-rose-500">
+                <div class="w-12 h-12 bg-amber-50 text-amber-500 rounded-full flex items-center justify-center mx-auto mb-4 text-amber-500 text-amber-500">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                     </svg>
                 </div>
-                <h3 class="font-bold text-slate-900 mb-1 text-sm text-slate-900 text-slate-800">Hapus Transaksi?</h3>
-                <p class="text-[11px] text-slate-500 leading-relaxed px-2 text-slate-500 text-slate-500 text-slate-500">Data ini akan dihapus permanen.</p>
+                <h3 class="font-bold text-slate-900 mb-1 text-sm text-slate-900">Pindahkan ke Sampah?</h3>
+                <p class="text-[11px] text-slate-500 leading-relaxed px-2 text-slate-500">Data tidak akan hilang permanen dan bisa dipulihkan nanti.</p>
             </div>
-            <div class="flex border-t border-slate-100 text-slate-800 text-slate-800">
+            <div class="flex border-t border-slate-100 text-slate-800">
                 <button id="cancel-delete-btn" class="flex-1 px-4 py-3 text-xs font-bold text-slate-500 border-r border-slate-100 hover:bg-slate-50 uppercase tracking-widest text-center">Batal</button>
-                <button id="btn-confirm-delete" class="flex-1 px-4 py-3 text-xs font-bold text-rose-600 hover:bg-rose-50 uppercase tracking-widest text-center">Hapus</button>
+                <button id="btn-confirm-delete" class="flex-1 px-4 py-3 text-xs font-bold text-amber-600 hover:bg-amber-50 uppercase tracking-widest text-center">Pindahkan</button>
             </div>
         </div>
     </div>
@@ -235,8 +279,10 @@
         let currentSort = { column: 'tgl', direction: 'asc' };
 
         const bodyEl = document.getElementById('transaction-body');
+        const historyBodyEl = document.getElementById('history-body');
         const emptyStateEl = document.getElementById('empty-state');
         const loadingStateEl = document.getElementById('loading-state');
+        const historyEmptyEl = document.getElementById('history-empty-state');
         const totalDebitEl = document.getElementById('total-debit');
         const totalKreditEl = document.getElementById('total-kredit');
         const totalBalanceEl = document.getElementById('total-balance');
@@ -255,35 +301,29 @@
         const parseIndoDate = (dateStr) => {
             if (!dateStr) return new Date(0);
             const cleanStr = dateStr.toLowerCase().trim();
-            
             const numericMatch = cleanStr.match(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})/);
             if (numericMatch) {
                 let year = parseInt(numericMatch[3]);
                 if (year < 100) year += 2000;
                 return new Date(year, parseInt(numericMatch[2]) - 1, parseInt(numericMatch[1]));
             }
-
             const parts = cleanStr.split(/[\s,]+/);
             let day = 1, month = 0, year = 2026;
-
             parts.forEach(p => {
                 if (!isNaN(p) && p.length <= 2) day = parseInt(p);
                 else if (monthMap[p] !== undefined) month = monthMap[p];
                 else if (!isNaN(p) && p.length === 4) year = parseInt(p);
             });
-
             return new Date(year, month, day);
         };
 
         const getSmartDateHTML = (dateStr) => {
             const dateObj = parseIndoDate(dateStr);
             if (isNaN(dateObj.getTime())) return `<span class="text-slate-700">${dateStr}</span>`;
-
             const dayName = daysIndo[dateObj.getDay()];
             const d = dateObj.getDate();
             const m = monthsIndo[dateObj.getMonth()];
             const y = dateObj.getFullYear();
-
             return `
                 <div class="flex flex-col items-start leading-tight">
                     <span class="text-[8px] sm:text-[9px] text-slate-400 font-normal">${dayName},</span>
@@ -308,10 +348,11 @@
 
         const applySorting = () => {
             const { column, direction } = currentSort;
+            // Filter out deleted items for main table
+            const activeData = rawTransactions.filter(t => !t.deleted);
             
-            sortedTransactions = [...rawTransactions].sort((a, b) => {
+            sortedTransactions = [...activeData].sort((a, b) => {
                 let valA, valB;
-                
                 if (column === 'tgl') {
                     valA = parseIndoDate(a.tgl || a.tanggal).getTime();
                     valB = parseIndoDate(b.tgl || b.tanggal).getTime();
@@ -320,8 +361,8 @@
                         valB = b.createdAt?.seconds || 0;
                     }
                 } else if (column === 'no') {
-                    valA = rawTransactions.indexOf(a);
-                    valB = rawTransactions.indexOf(b);
+                    valA = activeData.indexOf(a);
+                    valB = activeData.indexOf(b);
                 } else if (column === 'desc') {
                     valA = (a.desc || a.keterangan || '').toLowerCase();
                     valB = (b.desc || b.keterangan || '').toLowerCase();
@@ -332,22 +373,52 @@
                     valA = parseFloat(a.out || a.keluar || 0);
                     valB = parseFloat(b.out || b.keluar || 0);
                 }
-
                 if (valA < valB) return direction === 'asc' ? -1 : 1;
                 if (valA > valB) return direction === 'asc' ? 1 : -1;
                 return 0;
             });
-
-            // Sesuai kesepakatan: Ikon sort hidden
+            // Hide sort icons as per agreement
             ['no', 'tgl', 'desc', 'in', 'out'].forEach(col => {
                 const iconEl = document.getElementById(`sort-icon-${col}`);
                 if (iconEl) iconEl.innerHTML = '';
             });
         };
 
+        const renderHistory = () => {
+            const deletedData = rawTransactions.filter(t => t.deleted);
+            if (deletedData.length === 0) {
+                historyBodyEl.innerHTML = '';
+                historyEmptyEl.classList.remove('hidden');
+                return;
+            }
+            historyEmptyEl.classList.add('hidden');
+            
+            historyBodyEl.innerHTML = deletedData.sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0)).map(item => `
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="compact-td px-2 py-3">${item.tgl}</td>
+                    <td class="compact-td px-2 py-3 leading-tight font-normal text-slate-500">${item.desc}</td>
+                    <td class="compact-td px-2 py-3 text-center">
+                        <div class="flex items-center justify-center gap-1">
+                            <button onclick="window.restoreItem('${item.id}')" class="p-1.5 bg-blue-50 text-blue-600 rounded-md" title="Pulihkan">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                </svg>
+                            </button>
+                            <button onclick="window.permanentDeleteItem('${item.id}')" class="p-1.5 bg-rose-50 text-rose-600 rounded-md" title="Hapus Permanen">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        };
+
         const renderTable = (shouldScroll = false) => {
             loadingStateEl.classList.add('hidden');
             applySorting();
+            renderHistory();
 
             if (sortedTransactions.length === 0) {
                 bodyEl.innerHTML = '';
@@ -363,9 +434,8 @@
             let totalOut = 0;
 
             sortedTransactions.forEach((item, index) => {
-                const amountIn = parseFloat(item.in || item.masuk || item.debit || 0);
-                const amountOut = parseFloat(item.out || item.keluar || item.kredit || 0);
-                
+                const amountIn = parseFloat(item.in || 0);
+                const amountOut = parseFloat(item.out || 0);
                 totalIn += amountIn;
                 totalOut += amountOut;
                 cumulativeBalance += (amountIn - amountOut);
@@ -373,21 +443,21 @@
                 html += `
                     <tr class="hover:bg-slate-50/50 transition-colors">
                         <td class="compact-td text-center text-slate-400 font-medium">${index + 1}</td>
-                        <td class="compact-td">${getSmartDateHTML(item.tgl || item.tanggal)}</td>
-                        <td class="compact-td text-slate-800 leading-tight font-normal">${item.desc || item.keterangan || 'Transaksi'}</td>
+                        <td class="compact-td">${getSmartDateHTML(item.tgl)}</td>
+                        <td class="compact-td text-slate-800 leading-tight font-normal">${item.desc}</td>
                         <td class="compact-td text-right font-medium text-emerald-600">${amountIn > 0 ? formatIDR(amountIn) : '-'}</td>
                         <td class="compact-td text-right font-medium text-rose-600">${amountOut > 0 ? formatIDR(amountOut) : '-'}</td>
                         <td class="compact-td text-right font-bold ${cumulativeBalance < 0 ? 'text-rose-700' : 'text-slate-900'}">
                             ${formatIDR(cumulativeBalance)}
                         </td>
-                        <td class="compact-td text-center text-slate-800">
-                            <div class="flex items-center justify-center gap-1.5">
+                        <td class="compact-td text-center">
+                            <div class="flex items-center justify-center gap-1.5 text-slate-800">
                                 <button data-id="${item.id}" class="edit-btn text-blue-500/40 hover:text-blue-600 p-1 transition-colors bg-blue-50 rounded">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                     </svg>
                                 </button>
-                                <button data-id="${item.id}" class="delete-btn text-rose-500/40 hover:text-rose-600 p-1 transition-colors bg-rose-50 rounded">
+                                <button data-id="${item.id}" class="delete-btn text-amber-500/40 hover:text-amber-600 p-1 transition-colors bg-amber-50 rounded" title="Pindahkan ke Sampah">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                     </svg>
@@ -399,9 +469,7 @@
             });
 
             bodyEl.innerHTML = html;
-            const totalInRaw = rawTransactions.reduce((acc, t) => acc + parseFloat(t.in || t.masuk || 0), 0);
-            const totalOutRaw = rawTransactions.reduce((acc, t) => acc + parseFloat(t.out || t.keluar || 0), 0);
-            updateSummary(totalInRaw, totalOutRaw, totalInRaw - totalOutRaw);
+            updateSummary(totalIn, totalOut, cumulativeBalance);
             attachActionListeners();
 
             if (shouldScroll) {
@@ -444,25 +512,6 @@
             });
         };
 
-        const openInputModal = () => {
-            const modal = document.getElementById('input-modal');
-            const today = new Date().toLocaleDateString('id-ID', { day:'2-digit', month:'long', year:'numeric' });
-            
-            document.getElementById('add-tgl').value = today;
-            document.getElementById('add-desc').value = '';
-            document.getElementById('add-in').value = '';
-            document.getElementById('add-out').value = '';
-
-            modal.classList.remove('hidden');
-            document.body.classList.add('modal-active');
-            document.getElementById('add-desc').focus();
-        };
-
-        const closeInputModal = () => {
-            document.getElementById('input-modal').classList.add('hidden');
-            document.body.classList.remove('modal-active');
-        };
-
         const initSync = async () => {
             try {
                 connIndicator.classList.remove('opacity-0');
@@ -479,14 +528,13 @@
             }
         };
 
+        // API ACTIONS
         const processAdd = async () => {
             const tgl = document.getElementById('add-tgl').value.trim();
             const desc = document.getElementById('add-desc').value.trim();
             const valIn = parseInt(document.getElementById('add-in').value) || 0;
             const valOut = parseInt(document.getElementById('add-out').value) || 0;
-
             if(!desc) return;
-
             connIndicator.classList.remove('opacity-0');
             try {
                 await addDoc(collectionPath, {
@@ -494,11 +542,63 @@
                     desc: desc,
                     in: valIn,
                     out: valOut,
+                    deleted: false,
                     createdAt: serverTimestamp()
                 });
                 closeInputModal();
             } catch (e) { console.error(e); }
             connIndicator.classList.add('opacity-0');
+        };
+
+        const confirmSoftDelete = async () => {
+            if (idToDelete) {
+                connIndicator.classList.remove('opacity-0');
+                await updateDoc(doc(db, 'artifacts', 'cashflow', 'public', 'data', 'transactions', idToDelete), {
+                    deleted: true
+                });
+                closeDeleteModal();
+                connIndicator.classList.add('opacity-0');
+            }
+        };
+
+        window.restoreItem = async (id) => {
+            connIndicator.classList.remove('opacity-0');
+            await updateDoc(doc(db, 'artifacts', 'cashflow', 'public', 'data', 'transactions', id), {
+                deleted: false
+            });
+            connIndicator.classList.add('opacity-0');
+        };
+
+        window.permanentDeleteItem = async (id) => {
+            connIndicator.classList.remove('opacity-0');
+            await deleteDoc(doc(db, 'artifacts', 'cashflow', 'public', 'data', 'transactions', id));
+            connIndicator.classList.add('opacity-0');
+        };
+
+        // MODAL HANDLERS
+        const openInputModal = () => {
+            const today = new Date().toLocaleDateString('id-ID', { day:'2-digit', month:'long', year:'numeric' });
+            document.getElementById('add-tgl').value = today;
+            document.getElementById('add-desc').value = '';
+            document.getElementById('add-in').value = '';
+            document.getElementById('add-out').value = '';
+            document.getElementById('input-modal').classList.remove('hidden');
+            document.body.classList.add('modal-active');
+        };
+
+        const closeInputModal = () => {
+            document.getElementById('input-modal').classList.add('hidden');
+            document.body.classList.remove('modal-active');
+        };
+
+        const openHistoryModal = () => {
+            document.getElementById('history-modal').classList.remove('hidden');
+            document.body.classList.add('modal-active');
+        };
+
+        const closeHistoryModal = () => {
+            document.getElementById('history-modal').classList.add('hidden');
+            document.body.classList.remove('modal-active');
         };
 
         const askDelete = (id) => {
@@ -513,25 +613,14 @@
             idToDelete = null;
         };
 
-        const confirmDelete = async () => {
-            if (idToDelete) {
-                connIndicator.classList.remove('opacity-0');
-                await deleteDoc(doc(db, 'artifacts', 'cashflow', 'public', 'data', 'transactions', idToDelete));
-                closeDeleteModal();
-                connIndicator.classList.add('opacity-0');
-            }
-        };
-
         const openEditModal = (id) => {
             const item = rawTransactions.find(t => t.id === id);
             if (!item) return;
-
             document.getElementById('edit-id').value = item.id;
-            document.getElementById('edit-tgl').value = item.tgl || item.tanggal || '';
-            document.getElementById('edit-desc').value = item.desc || item.keterangan || '';
-            document.getElementById('edit-in').value = item.in || item.masuk || 0;
-            document.getElementById('edit-out').value = item.out || item.keluar || 0;
-
+            document.getElementById('edit-tgl').value = item.tgl || '';
+            document.getElementById('edit-desc').value = item.desc || '';
+            document.getElementById('edit-in').value = item.in || 0;
+            document.getElementById('edit-out').value = item.out || 0;
             document.getElementById('edit-modal').classList.remove('hidden');
             document.body.classList.add('modal-active');
         };
@@ -550,7 +639,6 @@
                 in: parseInt(document.getElementById('edit-in').value) || 0,
                 out: parseInt(document.getElementById('edit-out').value) || 0
             };
-
             await updateDoc(doc(db, 'artifacts', 'cashflow', 'public', 'data', 'transactions', id), updateData);
             closeEditModal();
             connIndicator.classList.add('opacity-0');
@@ -561,10 +649,10 @@
             const header = ["No", "Tanggal", "Keterangan", "Debit", "Kredit", "Saldo"];
             let bal = 0;
             const dataRows = sortedTransactions.map((t, i) => {
-                const amountIn = parseFloat(t.in || t.masuk || 0);
-                const amountOut = parseFloat(t.out || t.keluar || 0);
+                const amountIn = parseFloat(t.in || 0);
+                const amountOut = parseFloat(t.out || 0);
                 bal += (amountIn - amountOut);
-                return [i + 1, getSmartDatePlain(t.tgl || t.tanggal), t.desc || t.keterangan, amountIn, amountOut, bal];
+                return [i + 1, getSmartDatePlain(t.tgl), t.desc, amountIn, amountOut, bal];
             });
             const ws = XLSX.utils.aoa_to_sheet([header, ...dataRows]);
             const wb = XLSX.utils.book_new();
@@ -574,13 +662,19 @@
             XLSX.writeFile(wb, `Edi Brata Cashflow PSB ${ts}.xlsx`);
         };
 
+        // EVENT LISTENERS
         document.getElementById('open-input-btn').onclick = openInputModal;
         document.getElementById('close-input-btn').onclick = closeInputModal;
         document.getElementById('cancel-add-btn').onclick = closeInputModal;
         document.getElementById('save-add-btn').onclick = processAdd;
+        
+        document.getElementById('open-history-btn').onclick = openHistoryModal;
+        document.getElementById('close-history-btn').onclick = closeHistoryModal;
+
         document.getElementById('export-btn').onclick = exportToExcel;
         document.getElementById('cancel-delete-btn').onclick = closeDeleteModal;
-        document.getElementById('btn-confirm-delete').onclick = confirmDelete;
+        document.getElementById('btn-confirm-delete').onclick = confirmSoftDelete;
+        
         document.getElementById('close-edit-btn').onclick = closeEditModal;
         document.getElementById('cancel-edit-btn').onclick = closeEditModal;
         document.getElementById('save-edit-btn').onclick = saveEdit;
