@@ -38,7 +38,7 @@
         }
     </style>
 </head>
-<body class="bg-slate-50 min-h-screen pb-10 text-slate-800 text-slate-800">
+<body class="bg-slate-50 min-h-screen pb-10 text-slate-800">
 
     <div class="max-w-md mx-auto md:max-w-2xl lg:max-w-4xl p-2 sm:p-4">
         <!-- Indikator Koneksi -->
@@ -75,7 +75,7 @@
                 <div class="flex gap-2">
                     <textarea id="chat-input" rows="1" 
                         placeholder="Ketik transaksi .... (Contoh: 2 April, Keluar, Transportasi K3S, 100000)" 
-                        class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm placeholder:text-[11px] placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all resize-none overflow-hidden min-h-[42px] text-slate-800"
+                        class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm placeholder:text-[9px] placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all resize-none overflow-hidden min-h-[42px] text-slate-800"
                         oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"></textarea>
                     <button id="send-btn" class="bg-slate-900 text-white px-4 rounded-lg hover:bg-black transition-all flex-shrink-0 flex items-center justify-center disabled:opacity-50">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -123,8 +123,8 @@
 
     <!-- Modal Edit -->
     <div id="edit-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4 text-slate-800">
-        <div class="bg-white rounded-t-2xl sm:rounded-2xl w-full max-w-sm shadow-2xl border border-slate-200 overflow-hidden text-slate-800 text-slate-800">
-            <div class="p-4 border-b border-slate-100 flex justify-between items-center text-slate-800">
+        <div class="bg-white rounded-t-2xl sm:rounded-2xl w-full max-w-sm shadow-2xl border border-slate-200 overflow-hidden text-slate-800">
+            <div class="p-4 border-b border-slate-100 flex justify-between items-center">
                 <h3 class="font-bold text-slate-900 text-sm">Edit Transaksi</h3>
                 <button id="close-edit-btn" class="text-slate-400 p-1">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -139,7 +139,7 @@
                     <input type="text" id="edit-tgl" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800">
                 </div>
                 <div>
-                    <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1 text-slate-400 text-slate-400">Keterangan</label>
+                    <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1 text-slate-400">Keterangan</label>
                     <input type="text" id="edit-desc" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800">
                 </div>
                 <div class="grid grid-cols-2 gap-3 text-slate-800">
@@ -161,7 +161,7 @@
     </div>
 
     <!-- Modal Konfirmasi Hapus -->
-    <div id="delete-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4 text-slate-800 text-slate-800">
+    <div id="delete-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4 text-slate-800">
         <div class="bg-white rounded-2xl w-full max-w-[280px] shadow-2xl border border-slate-200 overflow-hidden text-center text-slate-800">
             <div class="p-6">
                 <div class="w-12 h-12 bg-rose-50 text-rose-500 rounded-full flex items-center justify-center mx-auto mb-4 text-rose-500">
@@ -169,7 +169,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                     </svg>
                 </div>
-                <h3 class="font-bold text-slate-900 mb-1 text-sm text-slate-900 text-slate-900 text-slate-800">Hapus Transaksi?</h3>
+                <h3 class="font-bold text-slate-900 mb-1 text-sm text-slate-900">Hapus Transaksi?</h3>
                 <p class="text-[11px] text-slate-500 leading-relaxed px-2 text-slate-500">Data ini akan dihapus permanen.</p>
             </div>
             <div class="flex border-t border-slate-100">
