@@ -49,6 +49,13 @@
             background-color: #eff6ff;
             border-radius: 2px;
         }
+
+        /* Animasi Slide Up untuk Action Sheet */
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        .slide-up { animation: slideUp 0.2s ease-out; }
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen pb-24 text-slate-800">
@@ -61,14 +68,7 @@
         <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-4 mb-3 text-slate-800">
             <div class="flex justify-between items-start mb-3">
                 <div class="flex flex-col">
-                    <div class="flex items-center gap-2">
-                        <h1 class="text-lg font-bold text-slate-900 leading-tight uppercase">CASHFLOW</h1>
-                        <button id="open-history-btn" class="p-1 text-slate-300 hover:text-slate-600 transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                        </button>
-                    </div>
+                    <h1 class="text-lg font-bold text-slate-900 leading-tight uppercase">CASHFLOW</h1>
                     <p class="text-[10px] text-slate-500 font-medium tracking-tight">Laporan Keuangan PSB Sukaresmi</p>
                 </div>
                 <div class="text-right">
@@ -104,7 +104,7 @@
                         </tr>
                     </thead>
                     <tbody id="transaction-body" class="divide-y divide-slate-50 bg-white text-slate-800">
-                        <!-- Content -->
+                        <!-- Konten diisi via JS -->
                     </tbody>
                 </table>
             </div>
@@ -116,13 +116,23 @@
             </div>
         </div>
 
-        <!-- Tombol Aksi Bawah -->
+        <!-- Tombol Aksi Bawah (Fixed) -->
         <div class="fixed bottom-4 left-0 w-full px-4 flex justify-between items-center pointer-events-none">
-            <button id="export-btn" class="pointer-events-auto bg-white/90 backdrop-blur border border-slate-200 text-slate-600 p-2.5 rounded-lg shadow-md active:scale-95 transition-all">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-            </button>
+            <div class="flex gap-2 pointer-events-auto">
+                <!-- Tombol Export -->
+                <button id="export-btn" class="bg-white border border-slate-200 text-slate-600 p-2.5 rounded-lg shadow-md active:scale-95 transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                </button>
+                <!-- Tombol Riwayat (Dipindahkan ke sini) -->
+                <button id="open-history-btn" class="bg-white border border-slate-200 text-slate-600 p-2.5 rounded-lg shadow-md active:scale-95 transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                </button>
+            </div>
+            
             <button id="open-input-btn" class="pointer-events-auto bg-slate-800 text-white px-5 py-2.5 rounded-lg shadow-lg active:scale-95 transition-all flex items-center gap-2 font-semibold text-xs tracking-tight">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
@@ -132,9 +142,9 @@
         </div>
     </div>
 
-    <!-- Menu Opsi Transaksi (Action Sheet) - Compact -->
+    <!-- Menu Opsi Transaksi (Action Sheet) -->
     <div id="row-action-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 hidden flex items-end justify-center p-0 text-slate-800">
-        <div class="bg-white rounded-t-lg w-full max-w-sm shadow-2xl overflow-hidden border-t border-slate-200 pb-4 slide-up">
+        <div class="bg-white rounded-t-lg w-full max-w-sm shadow-2xl overflow-hidden border-t border-slate-200 pb-6 slide-up">
             <div class="px-4 py-3 border-b border-slate-50 flex items-center justify-between bg-white text-slate-800">
                 <h3 class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Opsi Transaksi</h3>
                 <button id="close-action-menu" class="text-slate-300 p-1">
@@ -182,7 +192,7 @@
                 </div>
                 <div>
                     <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Keterangan</label>
-                    <textarea id="add-desc" rows="3" placeholder="Contoh: Transportasi K3S" class="w-full bg-white border border-slate-200 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none resize-none text-slate-800"></textarea>
+                    <textarea id="add-desc" rows="3" placeholder="Contoh: Sisa Kegiatan OSN" class="w-full bg-white border border-slate-200 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none resize-none text-slate-800"></textarea>
                 </div>
                 <div class="grid grid-cols-2 gap-3 text-slate-800">
                     <div>
@@ -204,8 +214,8 @@
 
     <!-- Modal Edit -->
     <div id="edit-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[60] hidden flex items-end sm:items-center justify-center p-0 sm:p-4 text-slate-800">
-        <div class="bg-white rounded-t-lg sm:rounded-lg w-full max-w-sm shadow-2xl border border-slate-200 overflow-hidden text-slate-800">
-            <div class="p-4 border-b border-slate-100 flex justify-between items-center text-slate-800 text-slate-800">
+        <div class="bg-white rounded-t-lg sm:rounded-lg w-full max-w-sm shadow-2xl border border-slate-200 overflow-hidden text-slate-800 text-slate-800">
+            <div class="p-4 border-b border-slate-100 flex justify-between items-center text-slate-800">
                 <h3 class="font-bold text-slate-900 text-sm uppercase tracking-wide">Edit Transaksi</h3>
                 <button id="close-edit-btn" class="text-slate-400 p-1">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -213,7 +223,7 @@
                     </svg>
                 </button>
             </div>
-            <div class="p-4 space-y-3 bg-slate-50/30 text-slate-800 text-slate-800">
+            <div class="p-4 space-y-3 bg-slate-50/30 text-slate-800">
                 <input type="hidden" id="edit-id">
                 <div>
                     <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Tanggal</label>
@@ -223,18 +233,18 @@
                     <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Keterangan</label>
                     <textarea id="edit-desc" rows="3" class="w-full bg-white border border-slate-200 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none resize-none text-slate-800"></textarea>
                 </div>
-                <div class="grid grid-cols-2 gap-3 text-slate-800 text-slate-800">
+                <div class="grid grid-cols-2 gap-3 text-slate-800">
                     <div>
-                        <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1 text-slate-400">Debit (Masuk)</label>
+                        <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Debit (Masuk)</label>
                         <input type="number" id="edit-in" class="w-full bg-white border border-slate-200 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800">
                     </div>
                     <div>
-                        <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1 text-slate-400">Kredit (Keluar)</label>
-                        <input type="number" id="edit-out" class="w-full bg-white border border-slate-200 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800 text-slate-800">
+                        <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Kredit (Keluar)</label>
+                        <input type="number" id="edit-out" class="w-full bg-white border border-slate-200 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800">
                     </div>
                 </div>
             </div>
-            <div class="p-4 bg-white border-t border-slate-100 flex gap-2 text-slate-800 text-slate-800">
+            <div class="p-4 bg-white border-t border-slate-100 flex gap-2 text-slate-800">
                 <button id="cancel-edit-btn" class="flex-1 px-4 py-2.5 border border-slate-200 text-slate-600 rounded-md text-xs font-bold hover:bg-slate-50 transition-all uppercase tracking-wider text-center text-slate-800">Batal</button>
                 <button id="save-edit-btn" class="flex-1 px-4 py-2.5 bg-slate-900 text-white rounded-md text-xs font-bold hover:bg-black transition-all uppercase tracking-wider text-center">Simpan</button>
             </div>
@@ -244,7 +254,7 @@
     <!-- Modal Riwayat (Tong Sampah) -->
     <div id="history-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[60] hidden flex items-end sm:items-center justify-center p-0 sm:p-4 text-slate-800 text-slate-800">
         <div class="bg-white rounded-t-lg sm:rounded-lg w-full max-w-lg shadow-2xl overflow-hidden flex flex-col border border-slate-200 h-[80vh] sm:h-auto sm:max-h-[85vh]">
-            <div class="p-4 border-b border-slate-100 flex justify-between items-center text-slate-800">
+            <div class="p-4 border-b border-slate-100 flex justify-between items-center text-slate-800 text-slate-800 text-slate-800">
                 <div>
                     <h3 class="font-bold text-slate-900 text-sm uppercase tracking-wide">Tong Sampah</h3>
                     <p class="text-[8px] text-slate-400 font-medium">Transaksi yang dihapus sementara</p>
@@ -255,17 +265,17 @@
                     </svg>
                 </button>
             </div>
-            <div class="flex-1 overflow-y-auto p-2 bg-slate-50/30 custom-scroll text-slate-800">
-                <table class="w-full text-left border-collapse text-slate-800">
-                    <thead class="sticky top-0 bg-slate-50 shadow-sm text-slate-800 text-slate-800">
-                        <tr class="text-slate-800">
-                            <th class="compact-th px-2 py-2 text-[8px] font-bold text-slate-400 uppercase w-16">Tgl</th>
+            <div class="flex-1 overflow-y-auto p-2 bg-slate-50/30 custom-scroll text-slate-800 text-slate-800">
+                <table class="w-full text-left border-collapse text-slate-800 text-slate-800">
+                    <thead class="sticky top-0 bg-slate-50 shadow-sm text-slate-800">
+                        <tr>
+                            <th class="compact-th px-2 py-2 text-[8px] font-bold text-slate-400 uppercase w-16 text-slate-400">Tgl</th>
                             <th class="compact-th px-2 py-2 text-[8px] font-bold text-slate-400 uppercase text-slate-400">Keterangan</th>
-                            <th class="compact-th px-2 py-2 text-[8px] font-bold text-slate-400 uppercase text-center w-20">Aksi</th>
+                            <th class="compact-th px-2 py-2 text-[8px] font-bold text-slate-400 uppercase text-center w-20 text-slate-400">Aksi</th>
                         </tr>
                     </thead>
                     <tbody id="history-body" class="divide-y divide-slate-100 bg-white text-slate-800">
-                        <!-- Content -->
+                        <!-- Riwayat diisi via JS -->
                     </tbody>
                 </table>
                 <div id="history-empty-state" class="py-10 text-center hidden text-slate-800">
@@ -278,9 +288,9 @@
         </div>
     </div>
 
-    <!-- Modal Konfirmasi Hapus -->
-    <div id="delete-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[70] hidden flex items-center justify-center p-4 text-slate-800 text-slate-800">
-        <div class="bg-white rounded-lg w-full max-w-[280px] shadow-2xl border border-slate-200 overflow-hidden text-center text-slate-800">
+    <!-- Modal Konfirmasi Soft Delete -->
+    <div id="delete-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[70] hidden flex items-center justify-center p-4 text-slate-800">
+        <div class="bg-white rounded-lg w-full max-w-[280px] shadow-2xl border border-slate-200 overflow-hidden text-center text-slate-800 text-slate-800">
             <div class="p-6">
                 <div class="w-12 h-12 bg-amber-50 text-amber-500 rounded-full flex items-center justify-center mx-auto mb-4 text-amber-500 text-amber-500">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -288,11 +298,11 @@
                     </svg>
                 </div>
                 <h3 class="font-bold text-slate-900 mb-1 text-sm text-slate-900 text-slate-800">Pindahkan ke Sampah?</h3>
-                <p class="text-[11px] text-slate-500 leading-relaxed px-2 text-slate-500 text-slate-500">Data tidak akan hilang permanen dan bisa dipulihkan nanti.</p>
+                <p class="text-[11px] text-slate-500 leading-relaxed px-2 text-slate-500 text-slate-500 text-slate-500">Data tidak akan hilang permanen dan bisa dipulihkan nanti.</p>
             </div>
-            <div class="flex border-t border-slate-100 text-slate-800">
+            <div class="flex border-t border-slate-100 text-slate-800 text-slate-800 text-slate-800">
                 <button id="cancel-delete-btn" class="flex-1 px-4 py-3 text-xs font-bold text-slate-500 border-r border-slate-100 hover:bg-slate-50 uppercase tracking-widest text-center text-slate-800">Batal</button>
-                <button id="btn-confirm-delete" class="flex-1 px-4 py-3 text-xs font-bold text-amber-600 hover:bg-amber-50 uppercase tracking-widest text-center">Pindahkan</button>
+                <button id="btn-confirm-delete" class="flex-1 px-4 py-3 text-xs font-bold text-amber-600 hover:bg-amber-50 uppercase tracking-widest text-center text-amber-600">Pindahkan</button>
             </div>
         </div>
     </div>
@@ -438,11 +448,11 @@
             if (deletedData.length === 0) { historyBodyEl.innerHTML = ''; historyEmptyEl.classList.remove('hidden'); return; }
             historyEmptyEl.classList.add('hidden');
             historyBodyEl.innerHTML = deletedData.sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0)).map(item => `
-                <tr class="hover:bg-slate-50 transition-colors text-slate-800">
+                <tr class="hover:bg-slate-50 transition-colors">
                     <td class="compact-td px-2 py-3">${getSmartDateHTML(item.tgl)}</td>
                     <td class="compact-td px-2 py-3 leading-tight font-normal text-slate-500">${item.desc}</td>
                     <td class="compact-td px-2 py-3 text-center">
-                        <div class="flex items-center justify-center gap-1 text-slate-800">
+                        <div class="flex items-center justify-center gap-1">
                             <button onclick="window.restoreItem('${item.id}')" class="p-1.5 bg-blue-50 text-blue-600 rounded-md">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -575,8 +585,8 @@
         document.getElementById('action-delete-btn').onclick = () => { document.getElementById('delete-modal').classList.remove('hidden'); };
         document.getElementById('cancel-delete-btn').onclick = () => { document.getElementById('delete-modal').classList.add('hidden'); };
         document.getElementById('btn-confirm-delete').onclick = confirmSoftDelete;
-        document.getElementById('close-edit-btn').onclick = () => { document.getElementById('edit-modal').classList.add('hidden'); document.body.classList.remove('modal-active'); };
-        document.getElementById('cancel-edit-btn').onclick = () => { document.getElementById('edit-modal').classList.add('hidden'); document.body.classList.remove('modal-active'); };
+        document.getElementById('close-edit-btn').onclick = () => { document.getElementById('edit-modal').classList.add('hidden'); if(document.getElementById('row-action-modal').classList.contains('hidden')) document.body.classList.remove('modal-active'); };
+        document.getElementById('cancel-edit-btn').onclick = () => { document.getElementById('edit-modal').classList.add('hidden'); if(document.getElementById('row-action-modal').classList.contains('hidden')) document.body.classList.remove('modal-active'); };
         document.getElementById('save-edit-btn').onclick = saveEdit;
 
         window.onload = initSync;
