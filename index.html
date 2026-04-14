@@ -105,91 +105,99 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
                 </svg>
-                Tambah Transaksi
+                TAMBAH TRANSAKSI
             </button>
         </div>
     </div>
 
-    <!-- Modal Input Transaksi (Chat Mode) -->
+    <!-- Modal Input Transaksi (Structured Mode) -->
     <div id="input-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4 text-slate-800">
-        <div class="bg-white rounded-t-3xl sm:rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden flex flex-col">
+        <div class="bg-white rounded-t-xl sm:rounded-xl w-full max-w-sm shadow-2xl overflow-hidden flex flex-col border border-slate-200">
             <div class="p-4 border-b border-slate-100 flex justify-between items-center">
-                <div>
-                    <h3 class="font-bold text-slate-900 text-sm uppercase">Input Transaksi</h3>
-                    <p class="text-[9px] text-slate-400 font-medium">Format: Tanggal, Masuk/Keluar, Uraian, Nominal</p>
-                </div>
-                <button id="close-input-btn" class="text-slate-400 p-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <h3 class="font-bold text-slate-900 text-sm uppercase tracking-wide">Tambah Transaksi</h3>
+                <button id="close-input-btn" class="text-slate-400 p-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
-            <div class="p-4 bg-slate-50">
-                <textarea id="chat-input" 
-                    placeholder="Contoh: 2 April, Keluar, Transportasi K3S, 100000" 
-                    class="w-full bg-white border border-slate-200 rounded-2xl p-4 text-sm placeholder:text-[10px] placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all resize-none min-h-[250px] text-slate-800"></textarea>
+            <div class="p-4 space-y-3 bg-slate-50/30">
+                <div>
+                    <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Tanggal</label>
+                    <input type="text" id="add-tgl" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800">
+                </div>
+                <div>
+                    <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Keterangan</label>
+                    <textarea id="add-desc" rows="3" placeholder="Contoh: Transportasi K3S" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none resize-none text-slate-800"></textarea>
+                </div>
+                <div class="grid grid-cols-2 gap-3 text-slate-800">
+                    <div>
+                        <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Debit (Masuk)</label>
+                        <input type="number" id="add-in" placeholder="0" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800">
+                    </div>
+                    <div>
+                        <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Kredit (Keluar)</label>
+                        <input type="number" id="add-out" placeholder="0" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800">
+                    </div>
+                </div>
             </div>
-            <div class="p-4 border-t border-slate-100 bg-white flex justify-end">
-                <button id="send-btn" class="bg-slate-900 text-white px-8 py-3 rounded-xl font-bold text-sm shadow-lg active:scale-95 transition-all flex items-center gap-2">
-                    Kirim Transaksi
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
-                    </svg>
-                </button>
+            <div class="p-4 bg-white border-t border-slate-100 flex gap-2">
+                <button id="cancel-add-btn" class="flex-1 px-4 py-2.5 border border-slate-200 text-slate-600 rounded-lg text-xs font-bold hover:bg-slate-50 transition-all uppercase tracking-wider text-center">Batal</button>
+                <button id="save-add-btn" class="flex-1 px-4 py-2.5 bg-slate-900 text-white rounded-lg text-xs font-bold hover:bg-black transition-all uppercase tracking-wider text-center">Simpan</button>
             </div>
         </div>
     </div>
 
     <!-- Modal Edit -->
     <div id="edit-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4 text-slate-800">
-        <div class="bg-white rounded-t-2xl sm:rounded-2xl w-full max-w-sm shadow-2xl border border-slate-200 overflow-hidden">
+        <div class="bg-white rounded-t-xl sm:rounded-xl w-full max-w-sm shadow-2xl border border-slate-200 overflow-hidden">
             <div class="p-4 border-b border-slate-100 flex justify-between items-center text-slate-800">
-                <h3 class="font-bold text-slate-900 text-sm uppercase">Edit Transaksi</h3>
+                <h3 class="font-bold text-slate-900 text-sm uppercase tracking-wide">Edit Transaksi</h3>
                 <button id="close-edit-btn" class="text-slate-400 p-1">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
-            <div class="p-5 space-y-4">
+            <div class="p-4 space-y-3 bg-slate-50/30">
                 <input type="hidden" id="edit-id">
                 <div>
                     <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Tanggal</label>
-                    <input type="text" id="edit-tgl" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800">
+                    <input type="text" id="edit-tgl" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800">
                 </div>
                 <div>
                     <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1 text-slate-400">Keterangan</label>
-                    <input type="text" id="edit-desc" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800">
+                    <textarea id="edit-desc" rows="3" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none resize-none text-slate-800"></textarea>
                 </div>
                 <div class="grid grid-cols-2 gap-3 text-slate-800">
                     <div>
                         <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Debit (Masuk)</label>
-                        <input type="number" id="edit-in" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800">
+                        <input type="number" id="edit-in" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800">
                     </div>
                     <div>
-                        <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1 text-slate-400">Kredit (Keluar)</label>
-                        <input type="number" id="edit-out" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800">
+                        <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Kredit (Keluar)</label>
+                        <input type="number" id="edit-out" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800">
                     </div>
                 </div>
             </div>
-            <div class="p-4 bg-slate-50 flex gap-2">
-                <button id="cancel-edit-btn" class="flex-1 px-4 py-2.5 border border-slate-200 text-slate-600 rounded-xl text-xs font-bold hover:bg-white transition-all uppercase tracking-wider text-center">Batal</button>
-                <button id="save-edit-btn" class="flex-1 px-4 py-2.5 bg-slate-900 text-white rounded-xl text-xs font-bold hover:bg-black transition-all uppercase tracking-wider text-center">Simpan</button>
+            <div class="p-4 bg-white border-t border-slate-100 flex gap-2">
+                <button id="cancel-edit-btn" class="flex-1 px-4 py-2.5 border border-slate-200 text-slate-600 rounded-lg text-xs font-bold hover:bg-slate-50 transition-all uppercase tracking-wider text-center">Batal</button>
+                <button id="save-edit-btn" class="flex-1 px-4 py-2.5 bg-slate-900 text-white rounded-lg text-xs font-bold hover:bg-black transition-all uppercase tracking-wider text-center">Simpan</button>
             </div>
         </div>
     </div>
 
     <!-- Modal Konfirmasi Hapus -->
     <div id="delete-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4 text-slate-800">
-        <div class="bg-white rounded-2xl w-full max-w-[280px] shadow-2xl border border-slate-200 overflow-hidden text-center">
+        <div class="bg-white rounded-xl w-full max-w-[280px] shadow-2xl border border-slate-200 overflow-hidden text-center">
             <div class="p-6">
                 <div class="w-12 h-12 bg-rose-50 text-rose-500 rounded-full flex items-center justify-center mx-auto mb-4 text-rose-500">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                     </svg>
                 </div>
-                <h3 class="font-bold text-slate-900 mb-1 text-sm text-slate-900">Hapus Transaksi?</h3>
-                <p class="text-[11px] text-slate-500 leading-relaxed px-2 text-slate-500 text-slate-500">Data ini akan dihapus permanen.</p>
+                <h3 class="font-bold text-slate-900 mb-1 text-sm">Hapus Transaksi?</h3>
+                <p class="text-[11px] text-slate-500 leading-relaxed px-2 text-slate-500">Data ini akan dihapus permanen.</p>
             </div>
             <div class="flex border-t border-slate-100">
                 <button id="cancel-delete-btn" class="flex-1 px-4 py-3 text-xs font-bold text-slate-500 border-r border-slate-100 hover:bg-slate-50 uppercase tracking-widest text-center">Batal</button>
@@ -229,7 +237,6 @@
         const totalDebitEl = document.getElementById('total-debit');
         const totalKreditEl = document.getElementById('total-kredit');
         const totalBalanceEl = document.getElementById('total-balance');
-        const chatInput = document.getElementById('chat-input');
         const connIndicator = document.getElementById('connection-indicator');
         const tableContainer = document.getElementById('table-container');
 
@@ -276,7 +283,7 @@
 
             return `
                 <div class="flex flex-col items-start leading-tight">
-                    <span class="text-[9px] text-slate-400 font-normal">${dayName},</span>
+                    <span class="text-[9px] sm:text-[10px] text-slate-400 font-normal">${dayName},</span>
                     <span class="whitespace-nowrap text-slate-700 font-medium">${d} ${m} ${y}</span>
                 </div>
             `;
@@ -377,8 +384,8 @@
                         <td class="compact-td text-right font-bold ${cumulativeBalance < 0 ? 'text-rose-700' : 'text-slate-900'}">
                             ${formatIDR(cumulativeBalance)}
                         </td>
-                        <td class="compact-td text-center">
-                            <div class="flex items-center justify-center gap-1.5 text-slate-800">
+                        <td class="compact-td text-center text-slate-800">
+                            <div class="flex items-center justify-center gap-1.5">
                                 <button data-id="${item.id}" class="edit-btn text-blue-500/40 hover:text-blue-600 p-1 transition-colors bg-blue-50 rounded">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -442,9 +449,18 @@
         };
 
         const openInputModal = () => {
-            document.getElementById('input-modal').classList.remove('hidden');
+            const modal = document.getElementById('input-modal');
+            const today = new Date().toLocaleDateString('id-ID', { day:'2-digit', month:'long', year:'numeric' });
+            
+            // Reset Form & Set Today
+            document.getElementById('add-tgl').value = today;
+            document.getElementById('add-desc').value = '';
+            document.getElementById('add-in').value = '';
+            document.getElementById('add-out').value = '';
+
+            modal.classList.remove('hidden');
             document.body.classList.add('modal-active');
-            chatInput.focus();
+            document.getElementById('add-desc').focus();
         };
 
         const closeInputModal = () => {
@@ -468,61 +484,25 @@
             }
         };
 
-        const processInput = async () => {
-            const text = chatInput.value.trim();
-            if(!text) return;
+        const processAdd = async () => {
+            const tgl = document.getElementById('add-tgl').value.trim();
+            const desc = document.getElementById('add-desc').value.trim();
+            const valIn = parseInt(document.getElementById('add-in').value) || 0;
+            const valOut = parseInt(document.getElementById('add-out').value) || 0;
+
+            if(!desc) return; // Minimal ada keterangan
 
             connIndicator.classList.remove('opacity-0');
-            const lines = text.split('\n').filter(line => line.trim() !== '');
-            
-            // Logika Cerdas: Default Tanggal Hari Ini jika baris pertama kosong
-            const todayStr = new Date().toLocaleDateString('id-ID', { day:'2-digit', month:'long', year:'numeric' });
-            let lastUsedDate = todayStr;
-
-            for (const line of lines) {
-                const parts = line.split(',').map(p => p.trim());
-                let tgl, type, desc, amountStr;
-
-                // Logika Pewarisan Tanggal
-                if (parts[0] === '') {
-                    tgl = lastUsedDate;
-                } else {
-                    tgl = parts[0];
-                    lastUsedDate = tgl;
-                }
-
-                if (parts.length >= 4) {
-                    type = parts[1];
-                    desc = parts[2];
-                    amountStr = parts[3];
-                } else if(parts.length === 2) {
-                    type = 'Keluar';
-                    desc = parts[0] === '' ? 'Transaksi' : parts[0];
-                    amountStr = parts[1];
-                } else {
-                    type = parts[1] || 'Keluar';
-                    desc = parts[2] || parts[0] || 'Transaksi Baru';
-                    amountStr = parts[3] || parts[1] || '0';
-                }
-
-                const amount = parseInt(amountStr.replace(/\D/g, '')) || 0;
-                const isIn = /masuk|diterima|penerimaan|pemasukan|debit|tambah/i.test(type);
-                
-                if (amount > 0) {
-                    try {
-                        await addDoc(collectionPath, {
-                            tgl: tgl,
-                            desc: desc,
-                            in: isIn ? amount : 0,
-                            out: isIn ? 0 : amount,
-                            createdAt: serverTimestamp()
-                        });
-                    } catch (e) { console.error(e); }
-                }
-            }
-
-            chatInput.value = '';
-            closeInputModal();
+            try {
+                await addDoc(collectionPath, {
+                    tgl: tgl,
+                    desc: desc,
+                    in: valIn,
+                    out: valOut,
+                    createdAt: serverTimestamp()
+                });
+                closeInputModal();
+            } catch (e) { console.error(e); }
             connIndicator.classList.add('opacity-0');
         };
 
@@ -601,7 +581,8 @@
 
         document.getElementById('open-input-btn').onclick = openInputModal;
         document.getElementById('close-input-btn').onclick = closeInputModal;
-        document.getElementById('send-btn').onclick = processInput;
+        document.getElementById('cancel-add-btn').onclick = closeInputModal;
+        document.getElementById('save-add-btn').onclick = processAdd;
         document.getElementById('export-btn').onclick = exportToExcel;
         document.getElementById('cancel-delete-btn').onclick = closeDeleteModal;
         document.getElementById('btn-confirm-delete').onclick = confirmDelete;
