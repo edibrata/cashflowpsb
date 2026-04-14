@@ -29,7 +29,8 @@
                 padding: 0.4rem 0.2rem !important; 
                 font-size: 8px !important; 
             }
-            .table-min-w { min-width: 370px !important; }
+            /* Lebar minimal disesuaikan karena tanggal lebih pendek */
+            .table-min-w { min-width: 350px !important; }
             .header-balance { font-size: 1.1rem !important; }
         }
         @media (min-width: 641px) {
@@ -69,7 +70,7 @@
                     <p class="text-[9px] text-emerald-600 uppercase font-bold">Total Masuk</p>
                     <p id="total-debit" class="text-xs font-bold text-emerald-700">Rp 0</p>
                 </div>
-                <div class="text-right bg-rose-50/50 p-2 rounded-md border border-rose-100/50 text-right text-right">
+                <div class="text-right bg-rose-50/50 p-2 rounded-md border border-rose-100/50 text-right">
                     <p class="text-[9px] text-rose-600 uppercase font-bold text-right">Total Keluar</p>
                     <p id="total-kredit" class="text-xs font-bold text-rose-700 text-right">Rp 0</p>
                 </div>
@@ -83,12 +84,12 @@
                     <thead class="sticky top-0 z-20 bg-slate-50 border-b border-slate-200 shadow-sm text-slate-800">
                         <tr>
                             <th onclick="handleSort('no')" class="sort-header compact-th px-2 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-center w-6">No <span id="sort-icon-no" class="hidden"></span></th>
-                            <th onclick="handleSort('tgl')" class="sort-header compact-th px-2 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider w-16 text-left">Tanggal <span id="sort-icon-tgl" class="hidden"></span></th>
+                            <th onclick="handleSort('tgl')" class="sort-header compact-th px-2 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider w-12 text-left">Tanggal <span id="sort-icon-tgl" class="hidden"></span></th>
                             <th onclick="handleSort('desc')" class="sort-header compact-th px-2 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-left">Keterangan <span id="sort-icon-desc" class="hidden"></span></th>
-                            <th onclick="handleSort('in')" class="sort-header compact-th px-2 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-right w-16 text-slate-800">Debit <span id="sort-icon-in" class="hidden"></span></th>
-                            <th onclick="handleSort('out')" class="sort-header compact-th px-2 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-right w-16 text-slate-800">Kredit <span id="sort-icon-out" class="hidden"></span></th>
-                            <th class="compact-th px-2 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-right w-20 text-slate-800">Saldo</th>
-                            <th class="compact-th px-2 py-3 text-center w-12 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-slate-800">Aksi</th>
+                            <th onclick="handleSort('in')" class="sort-header compact-th px-2 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-right w-16">Debit <span id="sort-icon-in" class="hidden"></span></th>
+                            <th onclick="handleSort('out')" class="sort-header compact-th px-2 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-right w-16">Kredit <span id="sort-icon-out" class="hidden"></span></th>
+                            <th class="compact-th px-2 py-3 text-[9px] font-bold text-slate-400 uppercase tracking-wider text-right w-20">Saldo</th>
+                            <th class="compact-th px-2 py-3 text-center w-12 text-[9px] font-bold text-slate-400 uppercase tracking-wider">Aksi</th>
                         </tr>
                     </thead>
                     <tbody id="transaction-body" class="divide-y divide-slate-50 text-[13px] bg-white text-slate-800">
@@ -96,7 +97,7 @@
                     </tbody>
                 </table>
             </div>
-            <div id="loading-state" class="py-10 text-center text-slate-800">
+            <div id="loading-state" class="py-10 text-center">
                 <p class="text-slate-400 text-xs animate-pulse">Memuat data...</p>
             </div>
             <div id="empty-state" class="py-10 text-center hidden text-slate-400">
@@ -121,9 +122,9 @@
     </div>
 
     <!-- Modal Input Transaksi -->
-    <div id="input-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4 text-slate-800 text-slate-800 text-slate-800 text-slate-800">
+    <div id="input-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4 text-slate-800">
         <div class="bg-white rounded-t-lg sm:rounded-lg w-full max-w-sm shadow-2xl overflow-hidden flex flex-col border border-slate-200">
-            <div class="p-4 border-b border-slate-100 flex justify-between items-center text-slate-800">
+            <div class="p-4 border-b border-slate-100 flex justify-between items-center">
                 <h3 class="font-bold text-slate-900 text-sm uppercase tracking-wide">Tambah Transaksi</h3>
                 <button id="close-input-btn" class="text-slate-400 p-1">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -143,25 +144,25 @@
                 <div class="grid grid-cols-2 gap-3 text-slate-800">
                     <div>
                         <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Debit (Masuk)</label>
-                        <input type="number" id="add-in" placeholder="0" class="w-full bg-white border border-slate-200 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800 text-slate-800">
+                        <input type="number" id="add-in" placeholder="0" class="w-full bg-white border border-slate-200 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800">
                     </div>
                     <div>
-                        <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1 text-slate-400">Kredit (Keluar)</label>
-                        <input type="number" id="add-out" placeholder="0" class="w-full bg-white border border-slate-200 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800 text-slate-800">
+                        <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Kredit (Keluar)</label>
+                        <input type="number" id="add-out" placeholder="0" class="w-full bg-white border border-slate-200 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800">
                     </div>
                 </div>
             </div>
             <div class="p-4 bg-white border-t border-slate-100 flex gap-2 text-slate-800">
                 <button id="cancel-add-btn" class="flex-1 px-4 py-2.5 border border-slate-200 text-slate-600 rounded-md text-xs font-bold hover:bg-slate-50 transition-all uppercase tracking-wider text-center">Batal</button>
-                <button id="save-add-btn" class="flex-1 px-4 py-2.5 bg-slate-900 text-white rounded-md text-xs font-bold hover:bg-black transition-all uppercase tracking-wider text-center text-white">Simpan</button>
+                <button id="save-add-btn" class="flex-1 px-4 py-2.5 bg-slate-900 text-white rounded-md text-xs font-bold hover:bg-black transition-all uppercase tracking-wider text-center">Simpan</button>
             </div>
         </div>
     </div>
 
     <!-- Modal Edit -->
-    <div id="edit-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4 text-slate-800 text-slate-800 text-slate-800">
-        <div class="bg-white rounded-t-lg sm:rounded-lg w-full max-w-sm shadow-2xl border border-slate-200 overflow-hidden text-slate-800">
-            <div class="p-4 border-b border-slate-100 flex justify-between items-center">
+    <div id="edit-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4 text-slate-800">
+        <div class="bg-white rounded-t-lg sm:rounded-lg w-full max-w-sm shadow-2xl border border-slate-200 overflow-hidden">
+            <div class="p-4 border-b border-slate-100 flex justify-between items-center text-slate-800">
                 <h3 class="font-bold text-slate-900 text-sm uppercase tracking-wide">Edit Transaksi</h3>
                 <button id="close-edit-btn" class="text-slate-400 p-1">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -173,26 +174,26 @@
                 <input type="hidden" id="edit-id">
                 <div>
                     <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Tanggal</label>
-                    <input type="text" id="edit-tgl" class="w-full bg-white border border-slate-200 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800 text-slate-800">
+                    <input type="text" id="edit-tgl" class="w-full bg-white border border-slate-200 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800">
                 </div>
                 <div>
-                    <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Keterangan</label>
-                    <textarea id="edit-desc" rows="3" class="w-full bg-white border border-slate-200 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none resize-none text-slate-800 text-slate-800"></textarea>
+                    <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1 text-slate-400">Keterangan</label>
+                    <textarea id="edit-desc" rows="3" class="w-full bg-white border border-slate-200 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none resize-none text-slate-800"></textarea>
                 </div>
-                <div class="grid grid-cols-2 gap-3 text-slate-800 text-slate-800">
+                <div class="grid grid-cols-2 gap-3 text-slate-800">
                     <div>
                         <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Debit (Masuk)</label>
-                        <input type="number" id="edit-in" class="w-full bg-white border border-slate-200 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800 text-slate-800">
+                        <input type="number" id="edit-in" class="w-full bg-white border border-slate-200 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800">
                     </div>
                     <div>
                         <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1 text-slate-400">Kredit (Keluar)</label>
-                        <input type="number" id="edit-out" class="w-full bg-white border border-slate-200 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800 text-slate-800">
+                        <input type="number" id="edit-out" class="w-full bg-white border border-slate-200 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800">
                     </div>
                 </div>
             </div>
             <div class="p-4 bg-white border-t border-slate-100 flex gap-2 text-slate-800">
                 <button id="cancel-edit-btn" class="flex-1 px-4 py-2.5 border border-slate-200 text-slate-600 rounded-md text-xs font-bold hover:bg-slate-50 transition-all uppercase tracking-wider text-center">Batal</button>
-                <button id="save-edit-btn" class="flex-1 px-4 py-2.5 bg-slate-900 text-white rounded-md text-xs font-bold hover:bg-black transition-all uppercase tracking-wider text-center text-white">Simpan</button>
+                <button id="save-edit-btn" class="flex-1 px-4 py-2.5 bg-slate-900 text-white rounded-md text-xs font-bold hover:bg-black transition-all uppercase tracking-wider text-center">Simpan</button>
             </div>
         </div>
     </div>
@@ -200,7 +201,7 @@
     <!-- Modal Riwayat (Tong Sampah) -->
     <div id="history-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4 text-slate-800">
         <div class="bg-white rounded-t-lg sm:rounded-lg w-full max-w-lg shadow-2xl overflow-hidden flex flex-col border border-slate-200 h-[80vh] sm:h-auto sm:max-h-[85vh]">
-            <div class="p-4 border-b border-slate-100 flex justify-between items-center text-slate-800">
+            <div class="p-4 border-b border-slate-100 flex justify-between items-center text-slate-800 text-slate-800 text-slate-800">
                 <div>
                     <h3 class="font-bold text-slate-900 text-sm uppercase tracking-wide">Tong Sampah</h3>
                     <p class="text-[8px] text-slate-400 font-medium">Transaksi yang dihapus sementara</p>
@@ -212,9 +213,9 @@
                 </button>
             </div>
             <div class="flex-1 overflow-y-auto p-2 bg-slate-50/30 custom-scroll text-slate-800">
-                <table class="w-full text-left border-collapse text-slate-800">
+                <table class="w-full text-left border-collapse">
                     <thead class="sticky top-0 bg-slate-50 shadow-sm text-slate-800">
-                        <tr class="text-slate-800">
+                        <tr>
                             <th class="compact-th px-2 py-2 text-[8px] font-bold text-slate-400 uppercase w-16">Tgl</th>
                             <th class="compact-th px-2 py-2 text-[8px] font-bold text-slate-400 uppercase">Keterangan</th>
                             <th class="compact-th px-2 py-2 text-[8px] font-bold text-slate-400 uppercase text-center w-20">Aksi</th>
@@ -224,7 +225,7 @@
                         <!-- Content -->
                     </tbody>
                 </table>
-                <div id="history-empty-state" class="py-10 text-center hidden">
+                <div id="history-empty-state" class="py-10 text-center hidden text-slate-800">
                     <p class="text-slate-300 text-[10px] italic">Tong sampah kosong.</p>
                 </div>
             </div>
@@ -243,10 +244,10 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                     </svg>
                 </div>
-                <h3 class="font-bold text-slate-900 mb-1 text-sm text-slate-900">Pindahkan ke Sampah?</h3>
-                <p class="text-[11px] text-slate-500 leading-relaxed px-2 text-slate-500">Data tidak akan hilang permanen dan bisa dipulihkan nanti.</p>
+                <h3 class="font-bold text-slate-900 mb-1 text-sm text-slate-900 text-slate-800">Pindahkan ke Sampah?</h3>
+                <p class="text-[11px] text-slate-500 leading-relaxed px-2 text-slate-500 text-slate-500 text-slate-500">Data tidak akan hilang permanen dan bisa dipulihkan nanti.</p>
             </div>
-            <div class="flex border-t border-slate-100 text-slate-800">
+            <div class="flex border-t border-slate-100 text-slate-800 text-slate-800">
                 <button id="cancel-delete-btn" class="flex-1 px-4 py-3 text-xs font-bold text-slate-500 border-r border-slate-100 hover:bg-slate-50 uppercase tracking-widest text-center">Batal</button>
                 <button id="btn-confirm-delete" class="flex-1 px-4 py-3 text-xs font-bold text-amber-600 hover:bg-amber-50 uppercase tracking-widest text-center">Pindahkan</button>
             </div>
@@ -320,14 +321,16 @@
         const getSmartDateHTML = (dateStr) => {
             const dateObj = parseIndoDate(dateStr);
             if (isNaN(dateObj.getTime())) return `<span class="text-slate-700">${dateStr}</span>`;
+            
             const dayName = daysIndo[dateObj.getDay()];
-            const d = dateObj.getDate();
-            const m = monthsIndo[dateObj.getMonth()];
-            const y = dateObj.getFullYear();
+            const dd = String(dateObj.getDate()).padStart(2, '0');
+            const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+            const yy = String(dateObj.getFullYear()).slice(-2);
+            
             return `
                 <div class="flex flex-col items-start leading-tight">
-                    <span class="text-[8px] sm:text-[9px] text-slate-400 font-normal">${dayName},</span>
-                    <span class="whitespace-nowrap text-slate-700 font-medium">${d} ${m} ${y}</span>
+                    <span class="text-[8px] text-slate-400 font-normal">${dayName},</span>
+                    <span class="whitespace-nowrap text-slate-700 font-medium tracking-tighter">${dd}/${mm}/${yy}</span>
                 </div>
             `;
         };
@@ -335,7 +338,10 @@
         const getSmartDatePlain = (dateStr) => {
             const dateObj = parseIndoDate(dateStr);
             if (isNaN(dateObj.getTime())) return dateStr;
-            return `${daysIndo[dateObj.getDay()]}, ${dateObj.getDate()} ${monthsIndo[dateObj.getMonth()]} ${dateObj.getFullYear()}`;
+            const dd = String(dateObj.getDate()).padStart(2, '0');
+            const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+            const yy = String(dateObj.getFullYear()).slice(-2);
+            return `${daysIndo[dateObj.getDay()]}, ${dd}/${mm}/${yy}`;
         };
 
         const formatIDR = (amount) => {
@@ -348,7 +354,6 @@
 
         const applySorting = () => {
             const { column, direction } = currentSort;
-            // Filter out deleted items for main table
             const activeData = rawTransactions.filter(t => !t.deleted);
             
             sortedTransactions = [...activeData].sort((a, b) => {
@@ -377,7 +382,6 @@
                 if (valA > valB) return direction === 'asc' ? 1 : -1;
                 return 0;
             });
-            // Hide sort icons as per agreement
             ['no', 'tgl', 'desc', 'in', 'out'].forEach(col => {
                 const iconEl = document.getElementById(`sort-icon-${col}`);
                 if (iconEl) iconEl.innerHTML = '';
@@ -395,16 +399,16 @@
             
             historyBodyEl.innerHTML = deletedData.sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0)).map(item => `
                 <tr class="hover:bg-slate-50 transition-colors">
-                    <td class="compact-td px-2 py-3">${item.tgl}</td>
+                    <td class="compact-td px-2 py-3">${getSmartDateHTML(item.tgl)}</td>
                     <td class="compact-td px-2 py-3 leading-tight font-normal text-slate-500">${item.desc}</td>
                     <td class="compact-td px-2 py-3 text-center">
                         <div class="flex items-center justify-center gap-1">
-                            <button onclick="window.restoreItem('${item.id}')" class="p-1.5 bg-blue-50 text-blue-600 rounded-md" title="Pulihkan">
+                            <button onclick="window.restoreItem('${item.id}')" class="p-1.5 bg-blue-50 text-blue-600 rounded-md">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                                 </svg>
                             </button>
-                            <button onclick="window.permanentDeleteItem('${item.id}')" class="p-1.5 bg-rose-50 text-rose-600 rounded-md" title="Hapus Permanen">
+                            <button onclick="window.permanentDeleteItem('${item.id}')" class="p-1.5 bg-rose-50 text-rose-600 rounded-md">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                 </svg>
@@ -453,11 +457,11 @@
                         <td class="compact-td text-center">
                             <div class="flex items-center justify-center gap-1.5 text-slate-800">
                                 <button data-id="${item.id}" class="edit-btn text-blue-500/40 hover:text-blue-600 p-1 transition-colors bg-blue-50 rounded">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                     </svg>
                                 </button>
-                                <button data-id="${item.id}" class="delete-btn text-amber-500/40 hover:text-amber-600 p-1 transition-colors bg-amber-50 rounded" title="Pindahkan ke Sampah">
+                                <button data-id="${item.id}" class="delete-btn text-amber-500/40 hover:text-amber-600 p-1 transition-colors bg-amber-50 rounded">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                     </svg>
@@ -528,7 +532,6 @@
             }
         };
 
-        // API ACTIONS
         const processAdd = async () => {
             const tgl = document.getElementById('add-tgl').value.trim();
             const desc = document.getElementById('add-desc').value.trim();
@@ -575,7 +578,6 @@
             connIndicator.classList.add('opacity-0');
         };
 
-        // MODAL HANDLERS
         const openInputModal = () => {
             const today = new Date().toLocaleDateString('id-ID', { day:'2-digit', month:'long', year:'numeric' });
             document.getElementById('add-tgl').value = today;
@@ -662,19 +664,15 @@
             XLSX.writeFile(wb, `Edi Brata Cashflow PSB ${ts}.xlsx`);
         };
 
-        // EVENT LISTENERS
         document.getElementById('open-input-btn').onclick = openInputModal;
         document.getElementById('close-input-btn').onclick = closeInputModal;
         document.getElementById('cancel-add-btn').onclick = closeInputModal;
         document.getElementById('save-add-btn').onclick = processAdd;
-        
         document.getElementById('open-history-btn').onclick = openHistoryModal;
         document.getElementById('close-history-btn').onclick = closeHistoryModal;
-
         document.getElementById('export-btn').onclick = exportToExcel;
         document.getElementById('cancel-delete-btn').onclick = closeDeleteModal;
         document.getElementById('btn-confirm-delete').onclick = confirmSoftDelete;
-        
         document.getElementById('close-edit-btn').onclick = closeEditModal;
         document.getElementById('cancel-edit-btn').onclick = closeEditModal;
         document.getElementById('save-edit-btn').onclick = saveEdit;
